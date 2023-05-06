@@ -29,22 +29,31 @@ public class HelloApplication extends Application {
 
         lock.setCirclesArray(lock.cirArr, lock);
         lock.setIndicatorsArray(lock.indicatorsArr, lock);
-
+        ArrayList<Boolean> pressed= new ArrayList<>();
+        pressed.add(false);
         scene.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.A) {
-                lock.rotateLock(-2);
-            }
-            if (e.getCode() == KeyCode.D) {
-                lock.rotateLock(2);
-            }
-            if (e.getCode() == KeyCode.S) {
-                lock.rotateTriangle();
-            }
-            if (lock.isCompleted()) {
-                System.out.println("ready");
-                stage.close();
+            if (!pressed.get(0)) {
+                if (e.getCode() == KeyCode.A) {
+                    lock.rotateLock(-2);
+                }
+                if (e.getCode() == KeyCode.D) {
+                    lock.rotateLock(2);
+                }
+                if (e.getCode() == KeyCode.S) {
+                    lock.rotateTriangle();
+                }
+                if (lock.isCompleted()) {
+                    System.out.println("ready");
+                    stage.close();
+                }
+                pressed.set(0, true);
             }
         });
+
+        scene.setOnKeyReleased(e -> {
+            pressed.set(0, false);
+        });
+
         lock.left.setOnMouseClicked(mouseEvent -> {
             lock.rotateLock(-2);
             if (lock.isCompleted()) {
