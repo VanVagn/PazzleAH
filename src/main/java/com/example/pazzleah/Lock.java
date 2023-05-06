@@ -13,6 +13,7 @@ import javafx.scene.text.TextAlignment;
 import java.util.*;
 
 public class Lock {
+
     ArrayList<Integer> cellsColorIndexes;
     ArrayList<Integer> placesColorIndexes;
     ArrayList<Circle> cirArr;

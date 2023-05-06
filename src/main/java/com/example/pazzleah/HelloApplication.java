@@ -1,5 +1,6 @@
 package com.example.pazzleah;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
@@ -14,7 +15,8 @@ import java.util.Arrays;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        Scene scene2 = new Scene(fxmlLoader.load(), 320, 240);
         Pane pane = new Pane();
         pane.setBackground(Background.fill(Color.web("#F2F2AC", 1.0)));
         Scene scene = new Scene(pane, 1920, 1080);
@@ -87,7 +89,7 @@ public class HelloApplication extends Application {
             }
         };
         at.start();*/
-        stage.setScene(scene);
+        stage.setScene(scene2);
         stage.show();
     }
 
