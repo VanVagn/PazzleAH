@@ -27,6 +27,9 @@ public class Lock {
     Text dText = new Text();
     Text sText = new Text();
 
+    double triangleRotateDistance;
+    double getTriangleRotateStartingPoint;
+
 
     Lock(ArrayList<Integer> cells, ArrayList<Integer> places, Scene scene, Pane pane) {
         pane.getChildren().add(left);
@@ -151,6 +154,8 @@ public class Lock {
             cirArr.get(i).setStrokeWidth(3);
             cirArr.get(i).setStroke(Color.web("#7A8052", 0.45));
         }
+        triangleRotateDistance = Math.abs(cirArr.get(1).getCenterX()-cirArr.get(3).getCenterX());
+        getTriangleRotateStartingPoint = cirArr.get(1).getCenterX();
     }
 
     public Color getCellsColor(int cellsColorIndex) {
@@ -246,7 +251,27 @@ public class Lock {
         this.cellsColorIndexes.set(1, b1);
         this.cellsColorIndexes.set(2, c1);
         this.cellsColorIndexes.set(3, a1);
-        this.setCirclesArray(this.cirArr, this);
         this.setIndicatorsArray(this.indicatorsArr, this);
+
+        new Thread(() -> {
+            for (int j = 0; j <= 20; j++) {
+                try {
+                    Thread.sleep(6 );
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                int k = j;
+                Platform.runLater(() -> {
+                    for (int i = 1; i <= 2; i++) {
+                        double formula1 = -k * (Math.PI / 80)+(i+1)*(Math.PI / 4);
+                        cirArr.get(i).setCenterX(getOnCirclePosX(bigCircle.getCenterX(), 185,  formula1));
+                        cirArr.get(i).setCenterY(getOnCirclePosY(bigCircle.getCenterY(), 185,  formula1));
+                    }
+                    cirArr.get(3).setCenterX(getTriangleRotateStartingPoint-k*triangleRotateDistance/20);
+                    this.setCirclesArray(this.cirArr, this);
+                });
+            }
+        }).start();
+
     }
 }

@@ -15,7 +15,10 @@ public class AppSettings {
         colorMap.put(5, Color.web("#2B2B2B",1)); //Пустой
         colorMap.put(6, Color.web("#F3C0EB",1)); //Розовый
         colorMap.put(7, Color.web("#FD5845",1)); //Красный
-        colorMap.put(8, Color.web("#81CFA5",1)); //Зеленый
+        colorMap.put(8, Color.web("#9D9D9D",1)); //Серый
+        colorMap.put(9, Color.web("#D032D3",1)); //Фиолетовый
+        colorMap.put(10, Color.web("#AF5F3A",1)); //Светло-коричневый
+        colorMap.put(11, Color.web("#1C9D97",1)); //Бирюзовый
     }
     private  Map<Integer, Color> colorMap;
 
