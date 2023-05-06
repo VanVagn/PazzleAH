@@ -22,8 +22,8 @@ public class HelloApplication extends Application {
         Lock lock = new Lock(
                 /*new ArrayList<>(Arrays.asList(5, 5, 7, 3, 1, 2, 4, 6)),
                 new ArrayList<>(Arrays.asList(6, 2, 5, 4, 7, 1, 3, 5)),*/
-                new ArrayList<>(Arrays.asList(1,6 , 3, 4, 11, 6, 7, 8)),
-                new ArrayList<>(Arrays.asList(1,5 , 3, 4, 11, 6, 7, 8)),
+                new ArrayList<>(Arrays.asList(0,6 , 3, 2, 11, 6, 7, 8)),
+                new ArrayList<>(Arrays.asList(1,0 , 3, 2, 11, 6, 7, 8)),
                 //new ArrayList<>(Arrays.asList(7,3,1,2,4,6,5,5)),
                 scene, pane);
 

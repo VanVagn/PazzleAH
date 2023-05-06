@@ -8,17 +8,18 @@ public class AppSettings {
 
     AppSettings() {
         colorMap = new HashMap<>();
-        colorMap.put(1, Color.web("#FFFFFF",1)); // Белый
-        colorMap.put(2, Color.web("#F3F978",1)); //Желтый
-        colorMap.put(3, Color.web("#52C4EF",1)); //Голубой
-        colorMap.put(4, Color.web("#81CFA5",1)); //Зеленый
-        colorMap.put(5, Color.web("#2B2B2B",1)); //Пустой
-        colorMap.put(6, Color.web("#F3C0EB",1)); //Розовый
-        colorMap.put(7, Color.web("#FD5845",1)); //Красный
+        colorMap.put(0, Color.web("#2B2B2B",1)); //Пустой
+        colorMap.put(1, Color.web("#FFFFFF",1)); //Белый
+        colorMap.put(2, Color.web("#DEBA05",1)); //Желтый
+        colorMap.put(3, Color.web("#01BAD7",1)); //Голубой
+        colorMap.put(4, Color.web("#1F8E00",1)); //Зеленый
+        colorMap.put(5, Color.web("#978C7E",1)); //светло-серо-коричневый
+        colorMap.put(6, Color.web("#FF2E96",1)); //Розовый
+        colorMap.put(7, Color.web("#F60001",1)); //Красный
         colorMap.put(8, Color.web("#9D9D9D",1)); //Серый
-        colorMap.put(9, Color.web("#D032D3",1)); //Фиолетовый
-        colorMap.put(10, Color.web("#AF5F3A",1)); //Светло-коричневый
-        colorMap.put(11, Color.web("#1C9D97",1)); //Бирюзовый
+        colorMap.put(9, Color.web("#AC17FE",1)); //Фиолетовый
+        colorMap.put(10, Color.web("#854316",1)); //Коричневый
+        colorMap.put(11, Color.web("#31D6C8",1)); //Бирюзовый
     }
     private  Map<Integer, Color> colorMap;
 

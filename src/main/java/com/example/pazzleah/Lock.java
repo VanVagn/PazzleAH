@@ -189,7 +189,7 @@ public class Lock {
     public void setCirclesArray(ArrayList<Circle> cirArr, Lock lock) {
         for (int i = 0; i < 8; i++) {
             cirArr.get(i).setFill(lock.getCellsColor(lock.getCellsColorIndexes(i)));
-            if (lock.getCellsColorIndexes(i) == 5) {
+            if (lock.getCellsColorIndexes(i) == 0) {
                 cirArr.get(i).setRadius(7);
             } else {
                 cirArr.get(i).setRadius(25);
@@ -208,10 +208,10 @@ public class Lock {
                 Platform.runLater(() -> {
                     for (int i = 0; i < 8; i++) {
                         rectArr.get(i).setFill(lock.getCellsColor(lock.getPlacesColorIndexes(i)));
-                        if ((lock.getCellsColorIndexes(i) == getPlacesColorIndexes(i) || lock.getPlacesColorIndexes(i) == 5) && rectArr.get(i).getRadius() != 25) {
+                        if ((lock.getCellsColorIndexes(i) == getPlacesColorIndexes(i) || lock.getPlacesColorIndexes(i) == 0) && rectArr.get(i).getRadius() != 25) {
                             rectArr.get(i).setRadius(47 - k);
                         }
-                        if ((lock.getCellsColorIndexes(i) != getPlacesColorIndexes(i) && lock.getPlacesColorIndexes(i) != 5) && rectArr.get(i).getRadius() != 47) {
+                        if ((lock.getCellsColorIndexes(i) != getPlacesColorIndexes(i) && lock.getPlacesColorIndexes(i) != 0) && rectArr.get(i).getRadius() != 47) {
                             rectArr.get(i).setRadius(25 + k);
                         }
                     }
