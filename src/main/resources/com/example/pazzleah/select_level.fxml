@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" spacing="20.0" style="-fx-background-color: #F2F2AC;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pazzleah.HelloApplication">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <VBox maxWidth="-Infinity" prefHeight="465.0" prefWidth="324.0">
+        <children>
+            <Button fx:id="lvl1" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="100.0" prefWidth="1098.0" text="Уровень 1" textAlignment="CENTER">
+                <VBox.margin>
+                    <Insets bottom="20.0" />
+                </VBox.margin>
+                <font>
+                    <Font name="System Bold" size="25.0" />
+                </font>
+            </Button>
+            <Button fx:id="lvl2" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="100.0" prefWidth="760.0" text="Уровень 2" textAlignment="CENTER">
+                <VBox.margin>
+                    <Insets bottom="20.0" />
+                </VBox.margin>
+                <font>
+                    <Font name="System Bold" size="25.0" />
+                </font>
+            </Button>
+            <Button fx:id="lvl3" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="100.0" prefWidth="760.0" text="Уровень 3" textAlignment="CENTER">
+                <VBox.margin>
+                    <Insets bottom="20.0" />
+                </VBox.margin>
+                <font>
+                    <Font name="System Bold" size="25.0" />
+                </font>
+            </Button>
+            <Button fx:id="lvl4" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="100.0" prefWidth="760.0" text="Уровень 4" textAlignment="CENTER">
+                <VBox.margin>
+                    <Insets bottom="20.0" />
+                </VBox.margin>
+                <font>
+                    <Font name="System Bold" size="25.0" />
+                </font>
+            </Button>
+            <Button fx:id="backMain" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="100.0" prefWidth="760.0" text="Назад" textAlignment="CENTER">
+                <VBox.margin>
+                    <Insets />
+                </VBox.margin>
+                <font>
+                    <Font size="25.0" />
+                </font>
+            </Button>
+        </children>
+    </VBox>
+
+    <Label fx:id="welcomeText" />
+</VBox>

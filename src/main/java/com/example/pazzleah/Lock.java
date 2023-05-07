@@ -1,8 +1,9 @@
 package com.example.pazzleah;
-
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
@@ -10,6 +11,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
+
 import java.util.*;
 
 public class Lock {
@@ -18,24 +21,31 @@ public class Lock {
     ArrayList<Integer> placesColorIndexes;
     ArrayList<Circle> cirArr;
     ArrayList<Circle> indicatorsArr = new ArrayList<>();
+    ArrayList<Boolean> pressed= new ArrayList<>();
     Circle bigCircle = new Circle();
     Circle smallCircle = new Circle();
     ArrayList<CubicCurve> triangle = new ArrayList<>();
     Button left = new Button();
     Button right = new Button();
     Button swap = new Button();
+    Button back = new Button();
     Text aText = new Text();
     Text dText = new Text();
     Text sText = new Text();
+    Scene scene;
 
     double triangleRotateDistance;
     double getTriangleRotateStartingPoint;
 
 
-    Lock(ArrayList<Integer> cells, ArrayList<Integer> places, Scene scene, Pane pane) {
+    Lock(ArrayList<Integer> cells, ArrayList<Integer> places, Scene scene, Pane pane, Scene sceneBack, Stage stage) {
+        pane.getChildren().clear();
+        this.scene = scene;
+        pressed.add(false);
         pane.getChildren().add(left);
         pane.getChildren().add(right);
         pane.getChildren().add(swap);
+        pane.getChildren().add(back);
         pane.getChildren().add(aText);
         pane.getChildren().add(dText);
         pane.getChildren().add(sText);
@@ -63,6 +73,16 @@ public class Lock {
 
         swap.setLayoutX(scene.getWidth() / 2.0 - swap.getPrefWidth() / 2.0);
         swap.setLayoutY(scene.getHeight() * 0.9 - swap.getPrefHeight() / 2.0);
+
+        back.setLayoutX(10);
+        back.setLayoutY(10);
+        back.setPrefWidth(60);
+        back.setPrefHeight(60);
+        back.setText("←");
+        back.setFont(Font.font("Arial", FontWeight.BLACK, 24));
+        back.setOnMouseClicked(mouseEvent -> {
+            stage.setScene(sceneBack);
+        });;
 
         aText.setText("Повернуть влево");
         dText.setText("Повернуть вправо");
@@ -157,6 +177,189 @@ public class Lock {
         }
         triangleRotateDistance = Math.abs(cirArr.get(1).getCenterX()-cirArr.get(3).getCenterX());
         getTriangleRotateStartingPoint = cirArr.get(1).getCenterX();
+        setCirclesArray(cirArr, this);
+        setActivities(scene, pane, sceneBack, stage);
+    }
+    Lock(int emptyCells, Scene scene, Pane pane, Scene sceneBack, Stage stage) {
+        pane.getChildren().clear();
+        this.scene = scene;
+        pressed.add(false);
+        pane.getChildren().add(left);
+        pane.getChildren().add(right);
+        pane.getChildren().add(swap);
+        pane.getChildren().add(back);
+        pane.getChildren().add(aText);
+        pane.getChildren().add(dText);
+        pane.getChildren().add(sText);
+
+        left.setPrefWidth(70);
+        left.setPrefHeight(70);
+        left.setText("A");
+        left.setFont(Font.font("Arial", FontWeight.BOLD, 35));
+
+        right.setPrefWidth(70);
+        right.setPrefHeight(70);
+        right.setText("D");
+        right.setFont(Font.font("Arial", FontWeight.BOLD, 35));
+
+        swap.setPrefWidth(70);
+        swap.setPrefHeight(70);
+        swap.setText("S");
+        swap.setFont(Font.font("Arial", FontWeight.BOLD, 35));
+
+        left.setLayoutX(scene.getWidth() * 0.25 - left.getPrefWidth() / 2.0);
+        left.setLayoutY(scene.getHeight() * 0.9 - left.getPrefHeight() / 2.0);
+
+        right.setLayoutX(scene.getWidth() * 0.75 - right.getPrefWidth() / 2.0);
+        right.setLayoutY(scene.getHeight() * 0.9 - right.getPrefHeight() / 2.0);
+
+        swap.setLayoutX(scene.getWidth() / 2.0 - swap.getPrefWidth() / 2.0);
+        swap.setLayoutY(scene.getHeight() * 0.9 - swap.getPrefHeight() / 2.0);
+
+        back.setLayoutX(10);
+        back.setLayoutY(10);
+        back.setPrefWidth(60);
+        back.setPrefHeight(60);
+        back.setText("←");
+        back.setFont(Font.font("Arial", FontWeight.BLACK, 24));
+        back.setOnMouseClicked(mouseEvent -> {
+            stage.setScene(sceneBack);
+        });;
+
+        aText.setText("Повернуть влево");
+        dText.setText("Повернуть вправо");
+        sText.setText("Поменять");
+        aText.setFont(Font.font("Arial", FontWeight.BOLD, 35));
+        dText.setFont(Font.font("Arial", FontWeight.BOLD, 35));
+        sText.setFont(Font.font("Arial", FontWeight.BOLD, 35));
+        aText.setLayoutX(left.getLayoutX() + left.getPrefWidth() / 2. - 250);
+        aText.setLayoutY(left.getLayoutY() - 10);
+        dText.setLayoutX(right.getLayoutX() + right.getPrefWidth() / 2 - 250);
+        dText.setLayoutY(right.getLayoutY() - 10);
+        sText.setLayoutX(swap.getLayoutX() + swap.getPrefWidth() / 2 - 250);
+        sText.setLayoutY(swap.getLayoutY() - 10);
+
+        aText.setWrappingWidth(500);
+        aText.setTextAlignment(TextAlignment.CENTER);
+        dText.setWrappingWidth(500);
+        dText.setTextAlignment(TextAlignment.CENTER);
+        sText.setWrappingWidth(500);
+        sText.setTextAlignment(TextAlignment.CENTER);
+        ArrayList<Integer> palette = new ArrayList<Integer>();
+        for(int i=0;i<AppSettings.SINGLETON.getColorMap().size()-1;i++){
+            palette.add(i);
+        }
+        this.cellsColorIndexes = palette;
+        this.placesColorIndexes = palette;
+
+        bigCircle.setCenterX(scene.getWidth() / 2);
+        bigCircle.setCenterY(scene.getHeight() / 2);
+        bigCircle.setRadius(240);
+        bigCircle.setFill(Color.web("#2B2B2B", 1.0));
+        bigCircle.setStrokeWidth(3);
+        bigCircle.setStroke(Color.BLACK);
+
+        smallCircle.setCenterX(scene.getWidth() / 2);
+        smallCircle.setCenterY(scene.getHeight() / 2);
+        smallCircle.setRadius(130);
+        smallCircle.setFill(Color.web("#252525", 1.0));
+        smallCircle.setStrokeWidth(3);
+        smallCircle.setStroke(Color.BLACK);
+
+        this.triangle.add(new CubicCurve());
+        this.triangle.add(new CubicCurve());
+
+        this.triangle.get(0).setStartX(getOnCirclePosX(bigCircle.getCenterX(), 185, 2 * (Math.PI / 4)));
+        this.triangle.get(0).setStartY((double) getOnCirclePosY(bigCircle.getCenterY(), 185, 1 * (Math.PI / 4)) - 40);
+
+        this.triangle.get(0).setControlX1((double) getOnCirclePosX(bigCircle.getCenterX(), 230, 1 * (Math.PI / 4)) + 70);
+        this.triangle.get(0).setControlY1((double) getOnCirclePosY(bigCircle.getCenterY(), 230, 1 * (Math.PI / 4)) - 70);
+
+        this.triangle.get(0).setControlX2((double) getOnCirclePosX(bigCircle.getCenterX(), 230, 1 * (Math.PI / 4)) + 70);
+        this.triangle.get(0).setControlY2((double) getOnCirclePosY(bigCircle.getCenterY(), 230, 1 * (Math.PI / 4)) - 20);
+
+        this.triangle.get(0).setEndX(getOnCirclePosX(bigCircle.getCenterX(), 185, 2 * (Math.PI / 4)));
+        this.triangle.get(0).setEndY((double) getOnCirclePosY(bigCircle.getCenterY(), 185, 2 * (Math.PI / 4)) + 40);
+
+        this.triangle.get(1).setStartX(getOnCirclePosX(bigCircle.getCenterX(), 185, 2 * (Math.PI / 4)));
+        this.triangle.get(1).setStartY((double) getOnCirclePosY(bigCircle.getCenterY(), 185, 3 * (Math.PI / 4)) - 40);
+
+        this.triangle.get(1).setControlX1((double) getOnCirclePosX(bigCircle.getCenterX(), 230, 3 * (Math.PI / 4)) - 70);
+        this.triangle.get(1).setControlY1((double) getOnCirclePosY(bigCircle.getCenterY(), 230, 3 * (Math.PI / 4)) - 70);
+
+        this.triangle.get(1).setControlX2((double) getOnCirclePosX(bigCircle.getCenterX(), 230, 3 * (Math.PI / 4)) - 70);
+        this.triangle.get(1).setControlY2((double) getOnCirclePosY(bigCircle.getCenterY(), 230, 3 * (Math.PI / 4)) - 20);
+
+        this.triangle.get(1).setEndX(getOnCirclePosX(bigCircle.getCenterX(), 185, 2 * (Math.PI / 4)));
+        this.triangle.get(1).setEndY((double) getOnCirclePosY(bigCircle.getCenterY(), 185, 2 * (Math.PI / 4)) + 40);
+
+        this.triangle.get(0).setFill(Color.web("#464435", 0.5));
+        this.triangle.get(1).setFill(Color.web("#464435", 0.5));
+
+        for (int i = 0; i < 8; i++) {
+            indicatorsArr.add(new Circle());
+            pane.getChildren().add(indicatorsArr.get(i));
+            indicatorsArr.get(i).setRadius(30);
+            indicatorsArr.get(i).setCenterX(getOnCirclePosX(bigCircle.getCenterX(), 225, i * (Math.PI / 4)));
+            indicatorsArr.get(i).setCenterY(getOnCirclePosY(bigCircle.getCenterY(), 225, i * (Math.PI / 4)));
+            indicatorsArr.get(i).setStrokeWidth(3);
+            indicatorsArr.get(i).setStroke(Color.BLACK);
+        }
+        this.setIndicatorsArray(indicatorsArr, this);
+        pane.getChildren().add(bigCircle);
+        pane.getChildren().add(smallCircle);
+        pane.getChildren().add(this.triangle.get(0));
+        pane.getChildren().add(this.triangle.get(1));
+        cirArr = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            cirArr.add(new Circle());
+            pane.getChildren().add(cirArr.get(i));
+            cirArr.get(i).setRadius(25);
+            cirArr.get(i).setCenterX(getOnCirclePosX(bigCircle.getCenterX(), 185, i * (Math.PI / 4)));
+            cirArr.get(i).setCenterY(getOnCirclePosY(bigCircle.getCenterY(), 185, i * (Math.PI / 4)));
+            cirArr.get(i).setStrokeWidth(3);
+            cirArr.get(i).setStroke(Color.web("#7A8052", 0.45));
+        }
+        triangleRotateDistance = Math.abs(cirArr.get(1).getCenterX()-cirArr.get(3).getCenterX());
+        getTriangleRotateStartingPoint = cirArr.get(1).getCenterX();
+        setCirclesArray(cirArr, this);
+        setActivities(scene, pane, sceneBack, stage);
+    }
+    private void setActivities(Scene scene, Pane pane, Scene sceneBack, Stage stage){
+        scene.setOnKeyPressed(e -> {
+            if (!pressed.get(0)) {
+                if (e.getCode() == KeyCode.A) {
+                    this.rotateLock(-2);
+                }
+                if (e.getCode() == KeyCode.D) {
+                    this.rotateLock(2);
+                }
+                if (e.getCode() == KeyCode.S) {
+                    this.rotateTriangle();
+                }
+                if (this.isCompleted()) {
+                    System.out.println("ready");}
+                pressed.set(0, true);
+            }
+        });
+        scene.setOnKeyReleased(e -> {
+            pressed.set(0, false);
+        });
+        this.left.setOnMouseClicked(mouseEvent -> {
+            this.rotateLock(-2);
+            if (this.isCompleted()) {
+                System.out.println("ready");
+                //stage.close();
+            }
+        });
+
+        this.right.setOnMouseClicked(mouseEvent -> {
+            this.rotateLock(2);
+            if (this.isCompleted()) {
+                System.out.println("ready");
+                //stage.close();
+            }
+        });
     }
 
     public Color getCellsColor(int cellsColorIndex) {
@@ -275,4 +478,7 @@ public class Lock {
         }).start();
 
     }
+    /*public ArrayList<Integer> entanglement(ArrayList<Integer> cells){
+
+    }*/
 }
