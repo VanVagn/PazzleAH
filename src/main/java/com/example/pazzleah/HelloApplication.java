@@ -38,10 +38,10 @@ public class HelloApplication extends Application {
         Button btnLvl5 = (Button) sceneSelectLevel.lookup("#lvl5");
         Button btnBackMain = (Button) sceneSelectLevel.lookup("#backMain");
         Button btnExit = (Button) sceneMainMenu.lookup("#exit");
-        Lock lock1 = new Lock(
+       /* Lock lock1 = new Lock(
                 new ArrayList<>(Arrays.asList(0,6 , 3, 2, 11, 6, 7, 8)),
                 new ArrayList<>(Arrays.asList(1,0 , 3, 2, 11, 6, 7, 8)),
-                sceneLvl, pane, sceneSelectLevel, stage);
+                sceneLvl, pane, sceneSelectLevel, stage);*/
 
         btnPlay.setOnMouseClicked(mouseEvent -> {
             stage.setScene(sceneSelectLevel);
@@ -49,6 +49,8 @@ public class HelloApplication extends Application {
 
         btnLvl1.setOnMouseClicked(mouseEvent -> {
             stage.setScene(sceneLvl);
+            Lock lockLvl1 = new Lock(2,0,0, sceneLvl, pane, sceneSelectLevel, stage);
+
         });
         btnLvl2.setOnMouseClicked(mouseEvent -> {
             stage.setScene(sceneLvl);
