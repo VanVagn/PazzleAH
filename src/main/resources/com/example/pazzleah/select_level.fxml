@@ -43,6 +43,14 @@
                     <Font name="System Bold" size="25.0" />
                 </font>
             </Button>
+            <Button fx:id="lvl5" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="100.0" prefWidth="760.0" text="Уровень 5" textAlignment="CENTER">
+                <VBox.margin>
+                    <Insets bottom="20.0" />
+                </VBox.margin>
+                <font>
+                    <Font name="System Bold" size="25.0" />
+                </font>
+            </Button>
             <Button fx:id="backMain" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="100.0" prefWidth="760.0" text="Назад" textAlignment="CENTER">
                 <VBox.margin>
                     <Insets />

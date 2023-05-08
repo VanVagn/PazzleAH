@@ -1,19 +1,13 @@
 package com.example.pazzleah;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class HelloApplication extends Application {
@@ -49,17 +43,24 @@ public class HelloApplication extends Application {
 
         btnLvl1.setOnMouseClicked(mouseEvent -> {
             stage.setScene(sceneLvl);
-            Lock lockLvl1 = new Lock(2,0,0, sceneLvl, pane, sceneSelectLevel, stage);
+            new Lock(6,0,0, sceneLvl, pane, sceneSelectLevel, stage);
 
         });
         btnLvl2.setOnMouseClicked(mouseEvent -> {
             stage.setScene(sceneLvl);
+            new Lock(3,2,0, sceneLvl, pane, sceneSelectLevel, stage);
         });
         btnLvl3.setOnMouseClicked(mouseEvent -> {
             stage.setScene(sceneLvl);
+            new Lock(2,0,0, sceneLvl, pane, sceneSelectLevel, stage);
         });
         btnLvl4.setOnMouseClicked(mouseEvent -> {
             stage.setScene(sceneLvl);
+            new Lock(1,2,0, sceneLvl, pane, sceneSelectLevel, stage);
+        });
+        btnLvl5.setOnMouseClicked(mouseEvent -> {
+            stage.setScene(sceneLvl);
+            new Lock(0,0,0, sceneLvl, pane, sceneSelectLevel, stage);
         });
 
         btnBackMain.setOnMouseClicked(mouseEvent -> {

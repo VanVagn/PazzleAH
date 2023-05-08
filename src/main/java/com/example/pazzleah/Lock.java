@@ -1,19 +1,24 @@
 package com.example.pazzleah;
-import javafx.application.Application;
+
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.CubicCurve;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import java.util.*;
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class Lock {
 
@@ -37,18 +42,6 @@ public class Lock {
 
     double triangleRotateDistance;
     double getTriangleRotateStartingPoint;
-
-    //Хорошо раб. конструктор
-    /*Lock(ArrayList<Integer> cells, ArrayList<Integer> places, Scene scene, Pane pane, Scene sceneBack, Stage stage) {
-        pane.getChildren().clear();
-        this.scene = scene;
-        this.cellsColorIndexes = cells;
-        this.placesColorIndexes = places;
-        this.fillLock( scene,  pane,  sceneBack, stage);
-        setCirclesArray(cirArr, this);
-        setActivities(scene, pane, sceneBack, stage);
-    }*/
-    //Баг
     Lock(int emptyCells, int sameCells1, int sameCells2, Scene scene, Pane pane, Scene sceneBack, Stage stage) {
         pane.getChildren().clear();
         this.scene = scene;
@@ -208,10 +201,10 @@ public class Lock {
                 if (e.getCode() == KeyCode.S) {
                     this.rotateTriangle();
                 }
-                if (this.isCompleted()) {
-                    System.out.println("ready");}
-                //Нажато
                 pressed.set(0, true);
+                if (this.isCompleted()){
+                    fillVictory(pane, scene, stage, sceneBack);
+                }
             }
         });
         scene.setOnKeyReleased(e -> {
@@ -221,19 +214,52 @@ public class Lock {
         this.left.setOnMouseClicked(mouseEvent -> {
             this.rotateLock(-2);
             if (this.isCompleted()) {
-                System.out.println("ready");
-                //stage.close();
+                fillVictory(pane, scene, stage, sceneBack);
             }
         });
 
         this.right.setOnMouseClicked(mouseEvent -> {
             this.rotateLock(2);
             if (this.isCompleted()) {
-                System.out.println("ready");
-                //stage.close();
+                fillVictory(pane, scene, stage, sceneBack);
+            }
+        });
+        this.swap.setOnMouseClicked(mouseEvent -> {
+            rotateTriangle();
+            if (this.isCompleted()) {
+                fillVictory(pane, scene, stage, sceneBack);
             }
         });
         back.setOnMouseClicked(mouseEvent -> {
+            stage.setScene(sceneBack);
+        });
+    }
+    private void fillVictory(Pane pane, Scene scene, Stage stage, Scene sceneBack){
+        Rectangle layer = new Rectangle();
+        layer.setWidth(scene.getWidth());
+        layer.setHeight(scene.getHeight());
+        layer.setFill(Color.web("#398030",0.4));
+        Text victoryText = new Text();
+        Button backVictoryButton = new Button("Вернуться к выбору уровней");
+        pane.getChildren().add(layer);
+        pane.getChildren().add(victoryText);
+        pane.getChildren().add(backVictoryButton);
+        backVictoryButton.setPrefWidth(400);
+        backVictoryButton.setPrefHeight(80);
+        backVictoryButton.setLayoutX(scene.getWidth()/2-backVictoryButton.getPrefWidth()/2);
+        backVictoryButton.setLayoutY(150);
+        backVictoryButton.setFont(Font.font("Arial", FontWeight.BLACK, 24));
+        victoryText.setText("Великолепно!\nВы прошли этот уровень!");
+        victoryText.setFont(Font.font("Arial", FontWeight.BOLD, 35));
+        victoryText.setLayoutY(60);
+        victoryText.setWrappingWidth(700);
+        victoryText.setLayoutX(scene.getWidth()/2 - 350);
+        victoryText.setTextAlignment(TextAlignment.CENTER);
+        scene.setOnKeyPressed(e -> {});
+        left.setOnMouseClicked(e -> {});
+        swap.setOnMouseClicked(e -> {});
+        right.setOnMouseClicked(e -> {});
+        backVictoryButton.setOnMouseClicked(e -> {
             stage.setScene(sceneBack);
         });
     }
