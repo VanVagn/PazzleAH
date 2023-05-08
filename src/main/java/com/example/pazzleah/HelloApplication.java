@@ -20,10 +20,6 @@ public class HelloApplication extends Application {
         Pane pane = new Pane();
         pane.setBackground(Background.fill(Color.web("#F2F2AC", 1.0)));
         Scene sceneLvl = new Scene(pane, 1920, 1080);
-        /*Scene sceneLvl2 = new Scene(pane, 1920, 1080);
-        Scene sceneLvl3 = new Scene(pane, 1920, 1080);
-        Scene sceneLvl4 = new Scene(pane, 1920, 1080);
-        Scene sceneLvl5 = new Scene(pane, 1920, 1080);*/
         Button btnPlay = (Button) sceneMainMenu.lookup("#play");
         Button btnLvl1 = (Button) sceneSelectLevel.lookup("#lvl1");
         Button btnLvl2 = (Button) sceneSelectLevel.lookup("#lvl2");
@@ -32,14 +28,8 @@ public class HelloApplication extends Application {
         Button btnLvl5 = (Button) sceneSelectLevel.lookup("#lvl5");
         Button btnBackMain = (Button) sceneSelectLevel.lookup("#backMain");
         Button btnExit = (Button) sceneMainMenu.lookup("#exit");
-       /* Lock lock1 = new Lock(
-                new ArrayList<>(Arrays.asList(0,6 , 3, 2, 11, 6, 7, 8)),
-                new ArrayList<>(Arrays.asList(1,0 , 3, 2, 11, 6, 7, 8)),
-                sceneLvl, pane, sceneSelectLevel, stage);*/
 
-        btnPlay.setOnMouseClicked(mouseEvent -> {
-            stage.setScene(sceneSelectLevel);
-        });
+        btnPlay.setOnMouseClicked(mouseEvent -> stage.setScene(sceneSelectLevel));
 
         btnLvl1.setOnMouseClicked(mouseEvent -> {
             stage.setScene(sceneLvl);
@@ -63,12 +53,8 @@ public class HelloApplication extends Application {
             new Lock(0,0,0, sceneLvl, pane, sceneSelectLevel, stage);
         });
 
-        btnBackMain.setOnMouseClicked(mouseEvent -> {
-            stage.setScene(sceneMainMenu);
-        });
-        btnExit.setOnMouseClicked(mouseEvent -> {
-            stage.close();
-        });
+        btnBackMain.setOnMouseClicked(mouseEvent -> stage.setScene(sceneMainMenu));
+        btnExit.setOnMouseClicked(mouseEvent -> stage.close());
         stage.setScene(sceneMainMenu);
         stage.show();
 

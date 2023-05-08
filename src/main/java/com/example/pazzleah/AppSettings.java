@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AppSettings {
-    public static final AppSettings SINGLETON = new AppSettings();;
+    public static final AppSettings SINGLETON = new AppSettings();
 
     AppSettings() {
         colorMap = new HashMap<>();
@@ -21,7 +21,7 @@ public class AppSettings {
         colorMap.put(10, Color.web("#854316",1)); //Коричневый
         colorMap.put(11, Color.web("#31D6C8",1)); //Бирюзовый
     }
-    private  Map<Integer, Color> colorMap;
+    private final Map<Integer, Color> colorMap;
 
     public Map<Integer, Color> getColorMap() {
         return colorMap;

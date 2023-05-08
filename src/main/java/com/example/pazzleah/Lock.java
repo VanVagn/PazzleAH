@@ -14,8 +14,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -230,9 +228,7 @@ public class Lock {
                 fillVictory(pane, scene, stage, sceneBack);
             }
         });
-        back.setOnMouseClicked(mouseEvent -> {
-            stage.setScene(sceneBack);
-        });
+        back.setOnMouseClicked(mouseEvent -> stage.setScene(sceneBack));
     }
     private void fillVictory(Pane pane, Scene scene, Stage stage, Scene sceneBack){
         Rectangle layer = new Rectangle();
@@ -259,9 +255,7 @@ public class Lock {
         left.setOnMouseClicked(e -> {});
         swap.setOnMouseClicked(e -> {});
         right.setOnMouseClicked(e -> {});
-        backVictoryButton.setOnMouseClicked(e -> {
-            stage.setScene(sceneBack);
-        });
+        backVictoryButton.setOnMouseClicked(e -> stage.setScene(sceneBack));
     }
 
     private Color getCellsColor(int cellsColorIndex) {
@@ -382,7 +376,7 @@ public class Lock {
     }
     private ArrayList<Integer> generateComposition(int emptyCells, int sameCells1, int sameCells2) {
         //Заполняем список нужными комплектами одинаковых и разных
-        ArrayList<Integer> palette = new ArrayList<Integer>();
+        ArrayList<Integer> palette = new ArrayList<>();
         for (int i = 1; i < AppSettings.SINGLETON.getColorMap().size() - 1; i++) {
             palette.add(i);
         }
@@ -402,9 +396,9 @@ public class Lock {
             newCells.add(palette.get(k));
         palette.remove(k);
 
-        int lenghth = 8 - emptyCells - sameCells1 - sameCells2;
+        int length = 8 - emptyCells - sameCells1 - sameCells2;
 
-        for (int i = 0; i < lenghth; i++) {
+        for (int i = 0; i < length; i++) {
             k = rand.nextInt(palette.size());
             newCells.add(palette.get(k));
             palette.remove(k);
@@ -413,25 +407,24 @@ public class Lock {
     }
     private ArrayList<Integer> entanglement(ArrayList<Integer> newCells) {
         //Перемешивание 100 движенй, (случайное число будет соответствовать элементу списка децствий (С) Колосов (Наш))}
-        ArrayList <Integer> newCellsCopy = newCells;
         int k;
         for(int i=0;i<100;i++){
             k=rand.nextInt(3);
             if(k==0){
-                Collections.rotate(newCellsCopy, 2);
+                Collections.rotate(newCells, 2);
             }
             if(k==1){
-                Collections.rotate(newCellsCopy, -2);
+                Collections.rotate(newCells, -2);
             }
             if(k==2){
-                int a1 = newCellsCopy.get(1);
-                int b1 = newCellsCopy.get(2);
-                int c1 = newCellsCopy.get(3);
-                newCellsCopy.set(1, b1);
-                newCellsCopy.set(2, c1);
-                newCellsCopy.set(3, a1);
+                int a1 = newCells.get(1);
+                int b1 = newCells.get(2);
+                int c1 = newCells.get(3);
+                newCells.set(1, b1);
+                newCells.set(2, c1);
+                newCells.set(3, a1);
             }
         }
-        return newCellsCopy;
+        return newCells;
     }
 }
